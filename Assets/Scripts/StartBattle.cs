@@ -16,7 +16,7 @@ public class StartBattle : MonoBehaviour
 
     void Start()
     {
-        
+        Random.InitState(System.DateTime.Now.Millisecond);
     }
 
     // Update is called once per frame
@@ -47,7 +47,9 @@ public class StartBattle : MonoBehaviour
 
         var attacker = attackerField.GetAttacker();
         var liveDefenderMinions = defenderField.LiveMinions.ToList();
-        var defender = liveDefenderMinions[Random.Range(0, liveDefenderMinions.Count - 1)];
+        var defenderIndex = Random.Range(0, liveDefenderMinions.Count);
+        Debug.Log($"Attacking {defenderIndex}");
+        var defender = liveDefenderMinions[defenderIndex];
 
         attacker.PerformAttack(defender);
 
@@ -63,6 +65,8 @@ public class StartBattle : MonoBehaviour
         isFighting = true;
         GetComponent<Button>().interactable = false;
         timeToNextAttack = 0;
-        isPlayerTurn = Random.Range(0, 1) == 1;
+        var coinflip = Random.Range(0, 2);
+        Debug.Log($"Coin flip: {coinflip}");
+        isPlayerTurn = coinflip == 1;
     }
 }

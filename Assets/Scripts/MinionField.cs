@@ -20,6 +20,8 @@ public class MinionField : MonoBehaviour
     void Start()
     {
         minions = GetComponentsInChildren<Minion>().ToList();
+        minions.Sort(new PositionComparer());
+        minions.Reverse();
     }
 
     // Update is called once per frame
@@ -41,5 +43,17 @@ public class MinionField : MonoBehaviour
         } while (!result.IsAlive());
 
         return result;
+    }
+}
+
+internal class PositionComparer : IComparer<Minion>
+{
+    public int Compare(Minion x, Minion y)
+    {
+        var xSlot = x.GetComponentInParent<CardSlot>();
+        var ySlot = y.GetComponentInParent<CardSlot>();
+        if (xSlot.horizontalPosition != ySlot.horizontalPosition)
+            return xSlot.horizontalPosition - ySlot.horizontalPosition;
+        return xSlot.verticalPosition - ySlot.verticalPosition;
     }
 }
