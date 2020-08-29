@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -9,8 +10,7 @@ public class Minion : MonoBehaviour
 {
 	public int Health;
 	public int Attack;
-
-	public float animationTimeSeconds = 1;
+	public float AnimationTimeSeconds = 1;
 
 	private int RemainingHealth;
 
@@ -19,8 +19,6 @@ public class Minion : MonoBehaviour
 	private TextMeshProUGUI attackText;
 
 	private Vector3 basePosition;
-
-	private Minion shchuna;
 
 	internal bool IsAlive()
 	{
@@ -48,31 +46,27 @@ public class Minion : MonoBehaviour
 		attackText.text = Attack.ToString();
 	}
 
-	public void PerformAttack(Minion otherMinion)
+	public async Task PerformAttack(Minion otherMinion)
 	{
-		shchuna = otherMinion;
-		StartCoroutine(AnimateTowards(otherMinion));
-	}
-
-	IEnumerator AnimateTowards(Minion otherMinion)
-	{
-		var frameTime = 0.05f;
-		var animationSteps = animationTimeSeconds / frameTime;
+		var frameTime = TimeSpan.FromMilliseconds(50);
+		var animationSteps = TimeSpan.FromSeconds(AnimationTimeSeconds).Ticks / frameTime.Ticks;
+		Debug.Log($"Animation steps: {animationSteps}");
 		var directionVector = otherMinion.basePosition - basePosition;
 
 		for (var i = 0; i <= animationSteps / 2; i++)
 		{
-			var pctDone = i / (animationSteps / 2);
-			this.transform.position = basePosition + pctDone*directionVector;
-			yield return new WaitForSeconds(frameTime);
+			var pctDone = i / (animationSteps / 2.0f);
+			transform.position = basePosition + pctDone * directionVector;
+			await Task.Delay(frameTime);
 		}
+
 		DoAttackLogic(otherMinion);
 
 		for (var i = 0; i <= animationSteps / 2; i++)
 		{
-			var pctDone = i / (animationSteps / 2);
-			this.transform.position = otherMinion.basePosition - pctDone * directionVector;
-			yield return new WaitForSeconds(frameTime);
+			var pctDone = i / (animationSteps / 2.0f);
+			transform.position = otherMinion.basePosition - pctDone * directionVector;
+			await Task.Delay(frameTime);
 		}
 	}
 

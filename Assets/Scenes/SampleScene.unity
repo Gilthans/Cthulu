@@ -746,6 +746,10 @@ PrefabInstance:
       propertyPath: Attack
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: AnimationTimeSeconds
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
       value: Minion4
@@ -934,6 +938,10 @@ PrefabInstance:
       propertyPath: Attack
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: AnimationTimeSeconds
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
       value: Minion3
@@ -1043,6 +1051,10 @@ PrefabInstance:
     - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: Attack
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: AnimationTimeSeconds
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
@@ -1519,6 +1531,10 @@ PrefabInstance:
     - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: Attack
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: AnimationTimeSeconds
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
@@ -2729,6 +2745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMinionField: {fileID: 1774240993}
   EnemyMinionField: {fileID: 1350233674}
+  TimeBetweenAttacksSeconds: 0.2
 --- !u!224 &2080148151
 RectTransform:
   m_ObjectHideFlags: 0
