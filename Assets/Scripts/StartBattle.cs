@@ -29,21 +29,21 @@ public class StartBattle : MonoBehaviour
         if (timeToNextAttack > 0)
             return;
 
+        if (!playerField.LiveMinions.Any() || !enemyField.LiveMinions.Any())
+        {
+            Debug.Log("Battle over");
+            isFighting = false;
+            GetComponent<Button>().interactable = true;
+            return;
+        }
+
         Debug.Log("Attacking!");
         timeToNextAttack = TimeBetweenAttacks;
 
-        MinionField attackerField;
-        MinionField defenderField;
-        if (isPlayerTurn)
-        {
-            attackerField = isPlayerTurn ? playerField : enemyField;
-            defenderField = isPlayerTurn ? enemyField: playerField;
-        }
-        else
-        {
-            attackerField = isPlayerTurn ? enemyField : playerField;
-            defenderField = isPlayerTurn ? playerField : enemyField;
-        }
+        var attackerField = isPlayerTurn ? playerField : enemyField;
+        var defenderField = isPlayerTurn ? enemyField: playerField;
+
+        isPlayerTurn = !isPlayerTurn;
 
         var attacker = attackerField.GetAttacker();
         var liveDefenderMinions = defenderField.LiveMinions.ToList();
@@ -51,12 +51,7 @@ public class StartBattle : MonoBehaviour
 
         attacker.PerformAttack(defender);
 
-        if (!playerField.LiveMinions.Any() || !enemyField.LiveMinions.Any())
-        {
-            Debug.Log("Battle over");
-            isFighting = false;
-            GetComponent<Button>().interactable = true;
-        }
+
     }
 
     public void OnClick()
@@ -67,7 +62,7 @@ public class StartBattle : MonoBehaviour
         Debug.Log("Battle Starting!");
         isFighting = true;
         GetComponent<Button>().interactable = false;
-        timeToNextAttack = TimeBetweenAttacks;
+        timeToNextAttack = 0;
         isPlayerTurn = Random.Range(0, 1) == 1;
     }
 }
