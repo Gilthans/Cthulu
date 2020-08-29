@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 public enum HorizontalPosition
 {
@@ -12,7 +12,7 @@ public enum VerticalPosition
     BOTTOM = 1, TOP = 2
 }
 
-public class CardSlot : MonoBehaviour
+public class CardSlot : MonoBehaviour, IDropHandler
 {
     public HorizontalPosition horizontalPosition;
     public VerticalPosition verticalPosition;
@@ -34,5 +34,14 @@ public class CardSlot : MonoBehaviour
             verticalPosition = VerticalPosition.BOTTOM;
         else
             throw new NotImplementedException($"Unknown hposition in {name}");
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        var minion = eventData.pointerDrag;
+        minion.transform.SetParent(transform);
+        var minionRect = minion.GetComponent<RectTransform>();
+        var thisRect = GetComponent<RectTransform>();
+        minionRect.anchoredPosition = thisRect.anchoredPosition;
     }
 }

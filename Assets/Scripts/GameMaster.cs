@@ -21,6 +21,8 @@ public class GameMaster : MonoBehaviour
     {
         InteractabilityOff();
         Debug.Log("Battle Starting!");
+        PlayerMinionField.UpdateMinions();
+        EnemyMinionField.UpdateMinions();
         var coinflip = Random.Range(0, 2);
         var isPlayerTurn = coinflip == 1;
 

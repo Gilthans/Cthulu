@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MinionField : MonoBehaviour
 {
@@ -11,15 +14,13 @@ public class MinionField : MonoBehaviour
     {
         get
         {
-            return minions.Where(m => m.IsAlive());
+            return minions.Where(m => m.IsAlive);
         }
     }
 
 	void Start()
     {
-        minions = GetComponentsInChildren<Minion>().ToList();
-        minions.Sort(new PositionComparer());
-        minions.Reverse();
+        UpdateMinions();
     }
 
     public Minion GetAttacker()
@@ -32,9 +33,16 @@ public class MinionField : MonoBehaviour
         {
             result = minions[currentAttacker];
             currentAttacker = (currentAttacker + 1) % minions.Count;
-        } while (!result.IsAlive());
+        } while (!result.IsAlive);
 
         return result;
+    }
+
+    internal void UpdateMinions()
+    {
+        minions = GetComponentsInChildren<Minion>().ToList();
+        minions.Sort(new PositionComparer());
+        minions.Reverse();
     }
 }
 
