@@ -12,13 +12,19 @@ public class Minion : MonoBehaviour
 
 	private int RemainingHealth;
 
-	private TextMeshPro healthText;
-	private TextMeshPro remainingHealthText;
-	private TextMeshPro attackText;
+	private TextMeshProUGUI healthText;
+	private TextMeshProUGUI remainingHealthText;
+	private TextMeshProUGUI attackText;
+
+	internal bool IsAlive()
+	{
+		return RemainingHealth > 0;
+	}
 
 	void Start()
 	{
-		var texts = this.GetComponents<TextMeshPro>();
+		var comps = this.GetComponentsInChildren<Component>();
+		var texts = this.GetComponentsInChildren<TextMeshProUGUI>();
 		healthText = texts.Single(t => t.name == "Health");
 		remainingHealthText = texts.Single(t => t.name == "RemainingHealth");
 		attackText = texts.Single(t => t.name == "Attack");
@@ -39,6 +45,8 @@ public class Minion : MonoBehaviour
 	{
 		otherMinion.RemainingHealth = Math.Max(0, otherMinion.RemainingHealth - Attack);
 		RemainingHealth = Math.Max(0, RemainingHealth - otherMinion.Attack);
+		UpdateStatus();
+		otherMinion.UpdateStatus();
 	}
 
 	void Update()
