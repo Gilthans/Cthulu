@@ -4,11 +4,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartBattle : MonoBehaviour
+public class StartSkirmish : MonoBehaviour
 {
     public float TimeBetweenAttacks = 1;
-    public MinionField enemyField;
-    public MinionField playerField;
+    public GameMaster GameMaster;
 
     private bool isFighting = false;
     private float timeToNextAttack = 0;
@@ -16,7 +15,6 @@ public class StartBattle : MonoBehaviour
 
     void Start()
     {
-        Random.InitState(System.DateTime.Now.Millisecond);
     }
 
     // Update is called once per frame
@@ -29,7 +27,7 @@ public class StartBattle : MonoBehaviour
         if (timeToNextAttack > 0)
             return;
 
-        if (!playerField.LiveMinions.Any() || !enemyField.LiveMinions.Any())
+        if (!GameMaster.PlayerMinionField.LiveMinions.Any() || !GameMaster.EnemyMinionField.LiveMinions.Any())
         {
             Debug.Log("Battle over");
             isFighting = false;
@@ -40,8 +38,8 @@ public class StartBattle : MonoBehaviour
         Debug.Log("Attacking!");
         timeToNextAttack = TimeBetweenAttacks;
 
-        var attackerField = isPlayerTurn ? playerField : enemyField;
-        var defenderField = isPlayerTurn ? enemyField: playerField;
+        var attackerField = isPlayerTurn ? GameMaster.PlayerMinionField : GameMaster.EnemyMinionField;
+        var defenderField = isPlayerTurn ? GameMaster.EnemyMinionField : GameMaster.PlayerMinionField;
 
         isPlayerTurn = !isPlayerTurn;
 
