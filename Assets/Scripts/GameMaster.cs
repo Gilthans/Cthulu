@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -17,10 +15,6 @@ public class GameMaster : MonoBehaviour
     void Start()
     {
         Random.InitState(System.Guid.NewGuid().GetHashCode());
-    }
-
-    void Update()
-    {
     }
 
     public async Task StartSkirmish()
@@ -40,13 +34,11 @@ public class GameMaster : MonoBehaviour
             var attacker = attackerField.GetAttacker();
             var liveDefenderMinions = defenderField.LiveMinions.ToList();
             var defenderIndex = Random.Range(0, liveDefenderMinions.Count);
-            Debug.Log($"Attacking {defenderIndex}");
             var defender = liveDefenderMinions[defenderIndex];
 
             await attacker.PerformAttack(defender);
 
             var delay = System.TimeSpan.FromSeconds(TimeBetweenAttacksSeconds);
-            Debug.Log($"Delay for {delay}");
             await Task.Delay(delay);
         }
 

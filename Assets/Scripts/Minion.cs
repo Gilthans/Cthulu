@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
@@ -76,10 +74,5 @@ public class Minion : MonoBehaviour
 		RemainingHealth = Math.Max(0, RemainingHealth - otherMinion.Attack);
 		UpdateStatus();
 		otherMinion.UpdateStatus();
-	}
-
-	void Update()
-	{
-
 	}
 }

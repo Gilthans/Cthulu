@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,17 +15,11 @@ public class MinionField : MonoBehaviour
         }
     }
 
-    void Start()
+	void Start()
     {
         minions = GetComponentsInChildren<Minion>().ToList();
         minions.Sort(new PositionComparer());
         minions.Reverse();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public Minion GetAttacker()

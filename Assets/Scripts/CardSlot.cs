@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -36,10 +34,5 @@ public class CardSlot : MonoBehaviour
             verticalPosition = VerticalPosition.BOTTOM;
         else
             throw new NotImplementedException($"Unknown hposition in {name}");
-    }
-
-    void Update()
-    {
-        
     }
 }
