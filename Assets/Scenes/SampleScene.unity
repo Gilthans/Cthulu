@@ -1130,6 +1130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e7de53c4f6e494f851673dc5060541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxCardDistance: 40
+  handMargins: 40
 --- !u!224 &589243035 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4583329271291088181, guid: a474a86d43b35634f9649c9691f047c1, type: 3}

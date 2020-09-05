@@ -17,7 +17,6 @@ public abstract class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDrag
 			return;
 		}
 
-		// TODO: Disable when the game is not interactable
 		draggableRectTransform = GetComponent<RectTransform>();
 		floatingCanvas = GameObject.FindGameObjectWithTag("FloatingCanvas").GetComponent<Canvas>();
 
