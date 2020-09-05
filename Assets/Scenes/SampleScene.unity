@@ -750,6 +750,10 @@ PrefabInstance:
       propertyPath: AnimationTimeSeconds
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: GameMaster
+      value: 
+      objectReference: {fileID: 2080148150}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
       value: Minion4
@@ -942,6 +946,10 @@ PrefabInstance:
       propertyPath: AnimationTimeSeconds
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: GameMaster
+      value: 
+      objectReference: {fileID: 2080148150}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
       value: Minion3
@@ -1146,6 +1154,10 @@ PrefabInstance:
       propertyPath: AnimationTimeSeconds
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: GameMaster
+      value: 
+      objectReference: {fileID: 2080148150}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
       value: Minion1
@@ -1728,6 +1740,10 @@ PrefabInstance:
       propertyPath: AnimationTimeSeconds
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
+      propertyPath: GameMaster
+      value: 
+      objectReference: {fileID: 2080148150}
     - target: {fileID: 6279291373996118682, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
       propertyPath: m_Name
       value: Minion2

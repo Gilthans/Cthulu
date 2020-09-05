@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class Minion : DraggableItem
 {
+	public GameMaster GameMaster;
+
 	public int Health;
 	public int Attack;
 	public float AnimationTimeSeconds = 1;
@@ -20,6 +22,11 @@ public class Minion : DraggableItem
 	private RectTransform rectTransform;
 
 	internal bool IsAlive  => RemainingHealth > 0;
+
+	public bool IsPlayerCard => GetComponentInParent<MinionField>()?.name == "Player" || GetComponentInParent<PlayerHand>() != null;
+
+	protected override bool IsDraggable => GameMaster.isGameInteractable && IsPlayerCard;
+
 
 	private void Awake()
 	{

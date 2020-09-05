@@ -4,50 +4,36 @@ using UnityEngine.EventSystems;
 public abstract class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 	Vector3 startPosition;
-	Transform startParent;
-	RectTransform rectTransform;
-	Canvas canvas;
+	Transform startParent = null;
+	RectTransform draggableRectTransform;
+	Canvas floatingCanvas;
 
-	//public void OnBeginDrag(PointerEventData eventData)
-	//{
-	//	startPosition = transform.position;
-	//	startParent = transform.parent;
-	//	GetComponent<CanvasGroup>().blocksRaycasts = false;
-	//	canvas = GameObject.FindGameObjectWithTag("FloatingCanvas").GetComponent<Canvas>();
-	//	transform.parent = canvas.transform;
-	//}
-
-	//public void OnDrag(PointerEventData eventData)
-	//{
-	//	transform.position += new Vector3(eventData.delta.x, eventData.delta.y, 0);
-	//}
-
-	//public void OnEndDrag(PointerEventData eventData)
-	//{
-	//	GetComponent<CanvasGroup>().blocksRaycasts = true;
-	//	if (transform.parent == canvas.transform)
-	//	{
-	//		transform.position = startPosition;
-	//		transform.parent = startParent;
-	//	}
-	//}
+	protected abstract bool IsDraggable { get; }
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
+		if (!IsDraggable) {
+			eventData.pointerDrag = null;
+			return;
+		}
+
 		// TODO: Disable when the game is not interactable
-		rectTransform = GetComponent<RectTransform>();
-		startPosition = rectTransform.anchoredPosition;
+		draggableRectTransform = GetComponent<RectTransform>();
+		floatingCanvas = GameObject.FindGameObjectWithTag("FloatingCanvas").GetComponent<Canvas>();
+
+		startPosition = draggableRectTransform.anchoredPosition;
 		startParent = transform.parent;
+
 		var canvasGroup = GetComponent<CanvasGroup>();
 		canvasGroup.alpha = 0.6f;
 		canvasGroup.blocksRaycasts = false;
-		canvas = GameObject.FindGameObjectWithTag("FloatingCanvas").GetComponent<Canvas>();
-		rectTransform.SetParent(canvas.transform);
+
+		draggableRectTransform.SetParent(floatingCanvas.transform);
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+		draggableRectTransform.anchoredPosition += eventData.delta / floatingCanvas.scaleFactor;
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
@@ -55,10 +41,10 @@ public abstract class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDrag
 		var canvasGroup = GetComponent<CanvasGroup>();
 		canvasGroup.alpha = 1f;
 		canvasGroup.blocksRaycasts = true;
-		if (canvas.transform == transform.parent)
+		if (floatingCanvas.transform == transform.parent)
 		{
-			rectTransform.SetParent(startParent);
-			rectTransform.anchoredPosition = startPosition;
+			draggableRectTransform.SetParent(startParent);
+			draggableRectTransform.anchoredPosition = startPosition;
 		}
 	}
 }

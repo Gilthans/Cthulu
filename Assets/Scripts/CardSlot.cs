@@ -17,6 +17,8 @@ public class CardSlot : MonoBehaviour, IDropHandler
     public HorizontalPosition horizontalPosition;
     public VerticalPosition verticalPosition;
 
+    public bool IsPlayerSlot =>  GetComponentInParent<MinionField>().name == "Player";
+
     void Start()
     {
         if (name.Contains("Mid"))
@@ -38,6 +40,9 @@ public class CardSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (GetComponentInChildren<Minion>() != null || !IsPlayerSlot)
+            return;
+
         var minion = eventData.pointerDrag;
         minion.transform.SetParent(transform);
         var minionRect = minion.GetComponent<RectTransform>();
