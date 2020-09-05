@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Minion : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class Minion : DraggableItem
 {
 	public int Health;
 	public int Attack;
@@ -17,28 +17,22 @@ public class Minion : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHa
 	private TextMeshProUGUI remainingHealthText;
 	private TextMeshProUGUI attackText;
 
-	private Vector3 basePosition;
 	private RectTransform rectTransform;
-	private CanvasGroup canvasGroup;
-	private Canvas canvas;
 
 	internal bool IsAlive  => RemainingHealth > 0;
 
 	private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
-		canvasGroup = GetComponent<CanvasGroup>();
-		canvas = GetComponentInParent<Canvas>();
 	}
 
 	void Start()
 	{
-		var comps = this.GetComponentsInChildren<Component>();
-		var texts = this.GetComponentsInChildren<TextMeshProUGUI>();
+		var comps = GetComponentsInChildren<Component>();
+		var texts = GetComponentsInChildren<TextMeshProUGUI>();
 		healthText = texts.Single(t => t.name == "Health");
 		remainingHealthText = texts.Single(t => t.name == "RemainingHealth");
 		attackText = texts.Single(t => t.name == "Attack");
-		basePosition = rectTransform.anchoredPosition;
 
 		RemainingHealth = Health;
 
@@ -57,12 +51,12 @@ public class Minion : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHa
 		var frameTime = TimeSpan.FromMilliseconds(50);
 		var animationSteps = TimeSpan.FromSeconds(AnimationTimeSeconds).Ticks / frameTime.Ticks;
 		Debug.Log($"Animation steps: {animationSteps}");
-		var directionVector = otherMinion.basePosition - basePosition;
+		var directionVector = otherMinion.rectTransform.anchoredPosition - rectTransform.anchoredPosition;
 
 		for (var i = 0; i <= animationSteps / 2; i++)
 		{
 			var pctDone = i / (animationSteps / 2.0f);
-			rectTransform.anchoredPosition = basePosition + pctDone * directionVector;
+			rectTransform.anchoredPosition = rectTransform.anchoredPosition + pctDone * directionVector;
 			await Task.Delay(frameTime);
 		}
 
@@ -71,7 +65,7 @@ public class Minion : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHa
 		for (var i = 0; i <= animationSteps / 2; i++)
 		{
 			var pctDone = i / (animationSteps / 2.0f);
-			rectTransform.anchoredPosition = otherMinion.basePosition - pctDone * directionVector;
+			rectTransform.anchoredPosition = otherMinion.rectTransform.anchoredPosition - pctDone * directionVector;
 			await Task.Delay(frameTime);
 		}
 	}
@@ -82,35 +76,5 @@ public class Minion : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHa
 		RemainingHealth = Math.Max(0, RemainingHealth - otherMinion.Attack);
 		UpdateStatus();
 		otherMinion.UpdateStatus();
-	}
-
-	Transform dragStartParent;
-	public void OnBeginDrag(PointerEventData eventData)
-	{
-		// TODO: Disable when the game is not interactable
-		canvasGroup.alpha = 0.6f;
-		canvasGroup.blocksRaycasts = false;
-		dragStartParent = transform.parent;
-	}
-
-	public void OnEndDrag(PointerEventData eventData)
-	{
-		canvasGroup.alpha = 1f;
-		canvasGroup.blocksRaycasts = true;
-		if (dragStartParent == transform.parent)
-		{
-			Debug.Log(basePosition);
-			rectTransform.anchoredPosition = basePosition;
-		}
-		else
-		{
-			basePosition = rectTransform.anchoredPosition;
-			Debug.Log(basePosition);
-		}
-	}
-
-	public void OnDrag(PointerEventData eventData)
-	{
-		rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
 	}
 }
