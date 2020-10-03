@@ -33,12 +33,7 @@ public class GameMaster : MonoBehaviour
         {
             card.transform.SetParent(Hand.transform);
         }
-        //for (int cardInd = 0; cardInd <= cards.Count; cardInd++)
-        //        {
-        //Minion card = cards.ElementAt(cardInd);
-        //card.transform.SetParent(Hand.transform);
-        //    }
-        int a = 5;
+
     }
 
     public async Task StartSkirmish()
