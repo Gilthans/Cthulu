@@ -57,13 +57,14 @@ public class Minion : DraggableItem
 	{
 		var frameTime = TimeSpan.FromMilliseconds(50);
 		var animationSteps = TimeSpan.FromSeconds(AnimationTimeSeconds).Ticks / frameTime.Ticks;
-		Debug.Log($"Animation steps: {animationSteps}");
-		var directionVector = otherMinion.rectTransform.anchoredPosition - rectTransform.anchoredPosition;
+		Vector2 startPosition = rectTransform.anchoredPosition;
+		Vector2 directionVector = rectTransform.InverseTransformVector(otherMinion.rectTransform.position - rectTransform.position);
+		Vector2 endPosition = startPosition + directionVector;
 
 		for (var i = 0; i <= animationSteps / 2; i++)
 		{
 			var pctDone = i / (animationSteps / 2.0f);
-			rectTransform.anchoredPosition = rectTransform.anchoredPosition + pctDone * directionVector;
+			rectTransform.anchoredPosition = startPosition + pctDone * directionVector;
 			await Task.Delay(frameTime);
 		}
 
@@ -72,7 +73,7 @@ public class Minion : DraggableItem
 		for (var i = 0; i <= animationSteps / 2; i++)
 		{
 			var pctDone = i / (animationSteps / 2.0f);
-			rectTransform.anchoredPosition = otherMinion.rectTransform.anchoredPosition - pctDone * directionVector;
+			rectTransform.anchoredPosition = endPosition - pctDone * directionVector;
 			await Task.Delay(frameTime);
 		}
 	}
