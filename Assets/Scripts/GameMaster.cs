@@ -1,20 +1,44 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class GameMaster : MonoBehaviour
 {
     public MinionField PlayerMinionField;
     public MinionField EnemyMinionField;
+
+    public PlayerDeck Deck;
+    public PlayerHand Hand;
+
     public float TimeBetweenAttacksSeconds = 1;
 
     public event System.Action InteractionStateChange;
 
     internal bool isGameInteractable = true;
 
+    public int InitialDrawSize = 5;
+    public int InitialDeckSize = 27;
+
     void Start()
     {
         Random.InitState(System.Guid.NewGuid().GetHashCode());
+
+        Deck.InitializeRandom(InitialDeckSize);
+        List<Minion> cards = Deck.Draw(InitialDrawSize);
+
+        foreach (Minion card in cards)
+        {
+            card.transform.SetParent(Hand.transform);
+        }
+        //for (int cardInd = 0; cardInd <= cards.Count; cardInd++)
+        //        {
+        //Minion card = cards.ElementAt(cardInd);
+        //card.transform.SetParent(Hand.transform);
+        //    }
+        int a = 5;
     }
 
     public async Task StartSkirmish()

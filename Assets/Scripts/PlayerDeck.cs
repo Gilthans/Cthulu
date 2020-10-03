@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 
@@ -7,6 +10,7 @@ public class PlayerDeck : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<Minion> cards;
+    public Minion minionPrefab;
 
     void Start()
     {
@@ -33,10 +37,11 @@ public class PlayerDeck : MonoBehaviour
     {
 
         List<Minion> drawn = new List<Minion>();
+        int numToDraw = Math.Min(n, this.cards.Count);
 
-        for (int i = 1; i <= n; i++)
+        for (int i = 0; i <= numToDraw; i++)
         {
-            drawn[i] = this.cards[this.cards.Count - 1];
+            drawn.Add(this.cards[this.cards.Count - 1]);
             this.cards.RemoveAt(this.cards.Count - 1);
         }
 
@@ -51,5 +56,14 @@ public class PlayerDeck : MonoBehaviour
     public void Add(Minion card)
     {
         this.cards.Add(card);
+    }
+
+    public void InitializeRandom(int n)
+    {
+        for (int i = 1; i <= n; i++)
+        {
+            Minion card = Instantiate(this.minionPrefab);
+            this.Add(card);
+        }
     }
 }
