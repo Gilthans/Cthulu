@@ -2062,17 +2062,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987241145}
   m_CullTransparentMesh: 0
---- !u!114 &1084157061 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
-  m_PrefabInstance: {fileID: 1694755446}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a58893ec3a87ecc43876df3b294ab688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1138348941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3078,7 +3067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
-  minionPrefab: {fileID: 1084157061}
+  minionPrefab: {fileID: 4865364431188915642, guid: c54fa4a074c5cb043b7040fcf0f8efad, type: 3}
 --- !u!1 &1770551335
 GameObject:
   m_ObjectHideFlags: 0
